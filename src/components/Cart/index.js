@@ -1,5 +1,7 @@
 import React from "react";
-import "./Cart.css";
+
+import "./styles.css";
+
 const Cart = () => {
   const quantity = 5;
   return (
