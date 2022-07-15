@@ -7,9 +7,11 @@ export const fetchData = () => {
             const res = await fetch('https://redux-68018-default-rtdb.firebaseio.com/cartItems.json');
             const data = await res.json();
 
-            if (!data.itemsList && !data.totalQuantity) {
-                data.totalQuantity = 0
+            if (!data.itemsList ) {
                 data.itemsList = []
+            }
+            if (!data.totalQuantity) {
+                data.totalQuantity = 0
             }
 
             return data;
