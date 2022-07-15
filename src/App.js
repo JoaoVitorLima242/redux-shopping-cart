@@ -7,14 +7,22 @@ import Layout from "./components/Layout";
 import Notification from "./components/Notification";
 import "./App.css";
 
-function App() {
-  const dispatch = useDispatch();
+let isFirstRender = true;
 
+function App() {
+  const dispatch = useDispatch()  ;
+  
   const cart = useSelector(state => state.cart);
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const notification = useSelector(state => state.ui.notification);
   
+  
   useEffect(() => {
+    if (isFirstRender) {
+      isFirstRender = false;
+      return;
+    }
+    
     const sendRequest = async () => {
       dispatch(uiActions.showNotification({
         open: true,
@@ -44,7 +52,7 @@ function App() {
 
   return (
     <div className="App">
-      {notification.open && <Notification type={notification?.type} message={notification?.message} />}
+      {notification?.open && <Notification type={notification?.type} message={notification?.message} />}
       {!isLoggedIn ? 
         <Auth /> 
       :
