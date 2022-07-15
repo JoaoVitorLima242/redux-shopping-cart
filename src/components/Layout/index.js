@@ -1,5 +1,6 @@
 import React from "react";
 
+import CartItems from "../CartItems";
 import Header from "../Header";
 import Products from "../Products";
 import "./styles.css";
@@ -12,6 +13,7 @@ const Layout = () => {
       <div className="layout">
         <Header />
         <Products />
+        <CartItems/>
         <div className="total-price">
           <h3>Total: ${total}</h3>
           <button className="orderBtn">Place Order</button>

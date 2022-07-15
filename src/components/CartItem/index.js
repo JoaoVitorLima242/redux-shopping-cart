@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { cartActions } from "./../store/cartSlice";
+import { cartActions } from "../../store/cartSlice";
 
 const CartItem = ({ name, quantity, total, price, id }) => {
   const dispatch = useDispatch();
