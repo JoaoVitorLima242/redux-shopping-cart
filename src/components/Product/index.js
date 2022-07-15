@@ -6,10 +6,6 @@ import "./styles.css";
 const Product = ({ name, id, imgURL, price }) => {
   const dispatch = useDispatch()
 
-  const cartItems = useSelector((state) => state.cart.itemsList)
-
-  console.log(cartItems)
-
   const addToCart = () => {
     dispatch(cartActions.addToCart({
       id,

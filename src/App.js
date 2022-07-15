@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { uiActions } from './store/uiSlice'
 import Auth from "./components/Auth";
 import Layout from "./components/Layout";
 import Notification from "./components/Notification";
 import "./App.css";
-import { sendCartData } from "./store/cartSlice";
+import { fetchData, sendCartData } from "./actions/cartActions";
+
 
 let isFirstRender = true;
 
@@ -19,11 +19,18 @@ function App() {
   
   
   useEffect(() => {
+    dispatch(fetchData())
+  }, [dispatch])
+
+  useEffect(() => {
     if (isFirstRender) {
       isFirstRender = false;
       return;
     }
-    dispatch(sendCartData(cart))
+
+    if (cart.changed) {
+      dispatch(sendCartData(cart))
+    }
 
   },[cart, dispatch])
 

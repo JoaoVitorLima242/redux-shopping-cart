@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { uiActions } from "./uiSlice";
-
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         itemsList: [],
         totalQuantity: 0,
-         showCart: false
+        showCart: false,
+        changed: false
     },
     reducers: {
         addToCart(state, action) {
+            state.changed = true
             const newItem = action.payload;
 
             // to check if item is already available
@@ -31,6 +31,7 @@ const cartSlice = createSlice({
             state.totalQuantity++
         },
         removeFromCart(state, action) {
+            state.changed = true
             const id = action.payload;
 
             const existingItem = state.itemsList.find(item => item.id === id);
@@ -47,48 +48,16 @@ const cartSlice = createSlice({
         },
         setShowCart(state) {
             state.showCart = !state.showCart
+        },
+        replaceData (state, action) {
+            state.totalQuantity = action.payload.totalQuantity;
+            state.itemsList = action.payload.itemsList;
+
+            console.log(action.payload.totalQuantity)
         }
     }
 });
 
-export const sendCartData = (cart) => {
-    return async (dispatch) => {
-        dispatch(uiActions.showNotification({
-            open: true,
-            message: 'Sending request',
-            type: 'warning'
-        }));
-
-        const sendRequest = async () => {
-            dispatch(uiActions.showNotification({
-              open: true,
-              message: 'Sending request',
-              type: 'warning'
-            }))
-            const res = await fetch('https://redux-68018-default-rtdb.firebaseio.com/cartItems.json', {
-              method: 'PUT',
-              body: JSON.stringify(cart)
-            });
-            const data = await res.json();
-            dispatch(uiActions.showNotification({
-              open: true,
-              message: 'Send Request to Database successfully!',
-              type: 'success'
-            }))
-        };
-
-        try {
-            await sendRequest();
-        } catch (error) {
-            dispatch(uiActions.showNotification({
-                open: true,
-                message: 'Sending request error',
-                type: 'error'
-            }))
-        }
-
-    }
-}
 
 export const cartActions = cartSlice.actions;
 
