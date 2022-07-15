@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import Auth from "./components/Auth";
 import Layout from "./components/Layout";
+import Notification from "./components/Notification";
 import "./App.css";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
 
   return (
     <div className="App">
+      <Notification type='success' message="This is a dummy message" />
       {!isLoggedIn ? 
         <Auth /> 
       :
